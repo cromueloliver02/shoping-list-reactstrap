@@ -23,11 +23,14 @@ const AppNavbar = ({ auth: { isAuthenticated, user, loading }, logout }) => {
 		<Fragment>
 			{user !== null && (
 				<NavItem>
-					<NavLink href='#!' onClick={() => logout()}>
-						Welcome {user.name}, Logout
-					</NavLink>
+					<NavLink>Howdy, {user.name}</NavLink>
 				</NavItem>
 			)}
+			<NavItem>
+				<NavLink href='#!' onClick={() => logout()}>
+					Logout
+				</NavLink>
+			</NavItem>
 		</Fragment>
 	);
 
@@ -51,7 +54,10 @@ const AppNavbar = ({ auth: { isAuthenticated, user, loading }, logout }) => {
 					<Nav className='ml-auto' navbar>
 						{!loading && isAuthenticated ? guestLink : authLink}
 						<NavItem>
-							<NavLink href='https://github.com/cromueloliver02'>
+							<NavLink
+								href='https://github.com/cromueloliver02/shoping-list-reactstrap'
+								target='_blank'
+							>
 								Github
 							</NavLink>
 						</NavItem>
