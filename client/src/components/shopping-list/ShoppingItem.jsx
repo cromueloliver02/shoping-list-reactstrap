@@ -4,17 +4,23 @@ import { deleteItem } from '../../_actions/item';
 import { ListGroupItem, Button } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-const ShoppingItem = ({ item, deleteItem }) => {
+const ShoppingItem = ({
+	item,
+	auth: { isAuthenticated, loading },
+	deleteItem
+}) => {
 	return (
 		<ListGroupItem>
-			<Button
-				color='danger'
-				size='sm'
-				className='mr-3'
-				onClick={() => deleteItem(item._id)}
-			>
-				&times;
-			</Button>
+			{!loading && isAuthenticated && (
+				<Button
+					color='danger'
+					size='sm'
+					className='mr-3'
+					onClick={() => deleteItem(item._id)}
+				>
+					&times;
+				</Button>
+			)}
 			{item.name}
 		</ListGroupItem>
 	);
@@ -22,7 +28,12 @@ const ShoppingItem = ({ item, deleteItem }) => {
 
 ShoppingItem.propTypes = {
 	item: PropTypes.object.isRequired,
-	deleteItem: PropTypes.func.isRequired
+	deleteItem: PropTypes.func.isRequired,
+	auth: PropTypes.object.isRequired
 };
 
-export default connect(null, { deleteItem })(ShoppingItem);
+const mapStateToProps = state => ({
+	auth: state.auth
+});
+
+export default connect(mapStateToProps, { deleteItem })(ShoppingItem);

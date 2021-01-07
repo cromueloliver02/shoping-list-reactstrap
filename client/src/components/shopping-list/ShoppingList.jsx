@@ -20,11 +20,23 @@ const ShoppingList = ({ item: { items, loading }, getItems }) => {
 		<Container>
 			<ListGroup>
 				<TransitionGroup className='shopping-list'>
-					{items.map(item => (
-						<CSSTransition key={item._id} classNames='fade' timeout={750}>
-							<ShoppingItem item={item} />
+					{!loading && items.length === 0 ? (
+						<CSSTransition classNames='fade' timeout={750}>
+							<p className='text-muted'>
+								No items to show, add some now...
+							</p>
 						</CSSTransition>
-					))}
+					) : (
+						items.map(item => (
+							<CSSTransition
+								key={item._id}
+								classNames='fade'
+								timeout={750}
+							>
+								<ShoppingItem item={item} />
+							</CSSTransition>
+						))
+					)}
 				</TransitionGroup>
 			</ListGroup>
 		</Container>

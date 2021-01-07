@@ -15,7 +15,7 @@ import {
 	Input
 } from 'reactstrap';
 
-const AddItemModal = ({ addItem }) => {
+const AddItemModal = ({ auth: { isAuthenticated, loading }, addItem }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [name, setName] = useState('');
 
@@ -34,10 +34,14 @@ const AddItemModal = ({ addItem }) => {
 	};
 
 	return (
-		<Container>
-			<Button color='dark' style={{ marginBottom: '2rem' }} onClick={toggle}>
-				Add Item
-			</Button>
+		<Container className='pt-5 pb-3'>
+			{isAuthenticated ? (
+				<Button color='dark' onClick={toggle}>
+					Add Item
+				</Button>
+			) : (
+				<h5>Please login to gain access.</h5>
+			)}
 
 			<Modal isOpen={isOpen} toggle={toggle}>
 				<ModalHeader toggle={toggle}>Add To Shopping List</ModalHeader>
@@ -67,4 +71,8 @@ AddItemModal.propTypes = {
 	addItem: PropTypes.func.isRequired
 };
 
-export default connect(null, { addItem })(AddItemModal);
+const mapStateToProps = state => ({
+	auth: state.auth
+});
+
+export default connect(mapStateToProps, { addItem })(AddItemModal);
