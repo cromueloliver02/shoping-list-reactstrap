@@ -4,7 +4,6 @@ import LoginModal from '../auth/LoginModal.jsx';
 import { connect } from 'react-redux';
 import { logout } from '../../_actions/auth';
 import PropTypes from 'prop-types';
-
 import {
 	Navbar,
 	Container,
@@ -13,9 +12,7 @@ import {
 	Collapse,
 	Nav,
 	NavItem,
-	NavLink,
-	Row,
-	Col
+	NavLink
 } from 'reactstrap';
 
 const AppNavbar = ({ auth: { isAuthenticated, user, loading }, logout }) => {

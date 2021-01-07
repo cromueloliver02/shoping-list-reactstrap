@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
 import { addItem } from '../../_actions/item';
-import { Row, Col } from 'reactstrap';
+import { Row, Col, Spinner } from 'reactstrap';
 import PropTypes from 'prop-types';
 
 import {
@@ -16,7 +16,7 @@ import {
 	Input
 } from 'reactstrap';
 
-const AddItemModal = ({ auth: { isAuthenticated, loading }, addItem }) => {
+const AddItemModal = ({ auth: { isAuthenticated }, loading, addItem }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [name, setName] = useState('');
 
@@ -40,7 +40,11 @@ const AddItemModal = ({ auth: { isAuthenticated, loading }, addItem }) => {
 				<Col sm={{ size: 6, offset: 3 }}>
 					{isAuthenticated ? (
 						<Button color='dark' onClick={toggle}>
-							Add Item
+							{loading ? (
+								<Spinner color='light' />
+							) : (
+								<Fragment>Add Item</Fragment>
+							)}
 						</Button>
 					) : (
 						<h5>Please login to gain access.</h5>
@@ -80,11 +84,13 @@ const AddItemModal = ({ auth: { isAuthenticated, loading }, addItem }) => {
 };
 
 AddItemModal.propTypes = {
-	addItem: PropTypes.func.isRequired
+	addItem: PropTypes.func.isRequired,
+	loading: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => ({
-	auth: state.auth
+	auth: state.auth,
+	loading: state.auth.loading
 });
 
 export default connect(mapStateToProps, { addItem })(AddItemModal);
