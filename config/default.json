@@ -1,0 +1,5 @@
+{
+	"devMongoURI": "mongodb://127.0.0.1:27017/shopping-list",
+	"mongoURI": "mongodb+srv://crom02:crom02@shoppinglistapp.iw1ij.mongodb.net/ShoppingList?retryWrites=true&w=majority",
+	"jwtSecret": "secret"
+}
