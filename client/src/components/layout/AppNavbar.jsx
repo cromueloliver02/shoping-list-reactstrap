@@ -13,7 +13,9 @@ import {
 	Collapse,
 	Nav,
 	NavItem,
-	NavLink
+	NavLink,
+	Row,
+	Col
 } from 'reactstrap';
 
 const AppNavbar = ({ auth: { isAuthenticated, user, loading }, logout }) => {

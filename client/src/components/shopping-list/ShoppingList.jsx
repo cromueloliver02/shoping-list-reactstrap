@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Container, ListGroup } from 'reactstrap';
+import { Col, Container, ListGroup, Row } from 'reactstrap';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
 import { getItems } from '../../_actions/item';
@@ -18,27 +18,31 @@ const ShoppingList = ({ item: { items, loading }, getItems }) => {
 
 	return (
 		<Container>
-			<ListGroup>
-				<TransitionGroup className='shopping-list'>
-					{!loading && items.length === 0 ? (
-						<CSSTransition classNames='fade' timeout={750}>
-							<p className='text-muted'>
-								No items to show, add some now...
-							</p>
-						</CSSTransition>
-					) : (
-						items.map(item => (
-							<CSSTransition
-								key={item._id}
-								classNames='fade'
-								timeout={750}
-							>
-								<ShoppingItem item={item} />
-							</CSSTransition>
-						))
-					)}
-				</TransitionGroup>
-			</ListGroup>
+			<Row>
+				<Col sm={{ size: 6, offset: 3 }}>
+					<ListGroup>
+						<TransitionGroup className='shopping-list'>
+							{!loading && items.length === 0 ? (
+								<CSSTransition classNames='fade' timeout={750}>
+									<p className='text-muted'>
+										No items to show, add some now...
+									</p>
+								</CSSTransition>
+							) : (
+								items.map(item => (
+									<CSSTransition
+										key={item._id}
+										classNames='fade'
+										timeout={750}
+									>
+										<ShoppingItem item={item} />
+									</CSSTransition>
+								))
+							)}
+						</TransitionGroup>
+					</ListGroup>
+				</Col>
+			</Row>
 		</Container>
 	);
 };

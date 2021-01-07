@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { addItem } from '../../_actions/item';
+import { Row, Col } from 'reactstrap';
 import PropTypes from 'prop-types';
 
 import {
@@ -35,34 +36,45 @@ const AddItemModal = ({ auth: { isAuthenticated, loading }, addItem }) => {
 
 	return (
 		<Container className='pt-5 pb-3'>
-			{isAuthenticated ? (
-				<Button color='dark' onClick={toggle}>
-					Add Item
-				</Button>
-			) : (
-				<h5>Please login to gain access.</h5>
-			)}
-
-			<Modal isOpen={isOpen} toggle={toggle}>
-				<ModalHeader toggle={toggle}>Add To Shopping List</ModalHeader>
-				<ModalBody>
-					<Form onSubmit={onSubmit}>
-						<FormGroup>
-							<Label for='item'>Item</Label>
-							<Input
-								type='text'
-								name='name'
-								id='item'
-								placeholder='Add shopping item...'
-								onChange={e => setName(e.target.value)}
-							/>
-						</FormGroup>
-						<Button type='submit' color='dark' block className='mt-3'>
+			<Row>
+				<Col sm={{ size: 6, offset: 3 }}>
+					{isAuthenticated ? (
+						<Button color='dark' onClick={toggle}>
 							Add Item
 						</Button>
-					</Form>
-				</ModalBody>
-			</Modal>
+					) : (
+						<h5>Please login to gain access.</h5>
+					)}
+
+					<Modal isOpen={isOpen} toggle={toggle}>
+						<ModalHeader toggle={toggle}>
+							Add To Shopping List
+						</ModalHeader>
+						<ModalBody>
+							<Form onSubmit={onSubmit}>
+								<FormGroup>
+									<Label for='item'>Item</Label>
+									<Input
+										type='text'
+										name='name'
+										id='item'
+										placeholder='Add shopping item...'
+										onChange={e => setName(e.target.value)}
+									/>
+								</FormGroup>
+								<Button
+									type='submit'
+									color='dark'
+									block
+									className='mt-3'
+								>
+									Add Item
+								</Button>
+							</Form>
+						</ModalBody>
+					</Modal>
+				</Col>
+			</Row>
 		</Container>
 	);
 };
