@@ -36,6 +36,8 @@ const RegisterModal = ({ register, setAlert }) => {
 			setAlert('Passwords does not match', 'danger');
 
 			setFormData({
+				name,
+				email,
 				password: '',
 				password2: ''
 			});
