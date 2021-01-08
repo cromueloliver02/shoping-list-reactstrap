@@ -16,7 +16,7 @@ import {
 	NavLink
 } from 'reactstrap';
 
-const RegisterModal = ({ register, setAlert }) => {
+const RegisterModal = ({ loading, register, setAlert }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [formData, setFormData] = useState({
 		name: '',
@@ -109,8 +109,14 @@ const RegisterModal = ({ register, setAlert }) => {
 								onChange={e => onChange(e)}
 							/>
 						</FormGroup>
-						<Button type='submit' color='dark' block>
-							Register
+						<Button type='submit' color='dark' block disabled={loading}>
+							{loading ? (
+								<Fragment>
+									<i className='fas fa-cog fa-spin'></i> Loading . . .
+								</Fragment>
+							) : (
+								<Fragment>Register</Fragment>
+							)}
 						</Button>
 					</Form>
 				</ModalBody>
@@ -121,7 +127,12 @@ const RegisterModal = ({ register, setAlert }) => {
 
 RegisterModal.propTypes = {
 	register: PropTypes.func.isRequired,
-	setAlert: PropTypes.func.isRequired
+	setAlert: PropTypes.func.isRequired,
+	loading: PropTypes.bool.isRequired
 };
 
-export default connect(null, { register, setAlert })(RegisterModal);
+const mapStateToProps = state => ({
+	loading: state.auth.loading
+});
+
+export default connect(mapStateToProps, { register, setAlert })(RegisterModal);

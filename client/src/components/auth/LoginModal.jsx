@@ -15,7 +15,7 @@ import {
 	NavLink
 } from 'reactstrap';
 
-const LoginModal = ({ login }) => {
+const LoginModal = ({ loading, login }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [formData, setFormData] = useState({
 		email: '',
@@ -71,8 +71,14 @@ const LoginModal = ({ login }) => {
 								onChange={e => onChange(e)}
 							/>
 						</FormGroup>
-						<Button type='submit' color='dark' block>
-							Login
+						<Button type='submit' color='dark' block disabled={loading}>
+							{loading ? (
+								<Fragment>
+									<i className='fas fa-cog fa-spin'></i> Loading . . .
+								</Fragment>
+							) : (
+								<Fragment>Login</Fragment>
+							)}
 						</Button>
 					</Form>
 				</ModalBody>
@@ -82,7 +88,12 @@ const LoginModal = ({ login }) => {
 };
 
 LoginModal.propTypes = {
-	login: PropTypes.func.isRequired
+	login: PropTypes.func.isRequired,
+	loading: PropTypes.bool.isRequired
 };
 
-export default connect(null, { login })(LoginModal);
+const mapStateToProps = state => ({
+	loading: state.auth.loading
+});
+
+export default connect(mapStateToProps, { login })(LoginModal);
