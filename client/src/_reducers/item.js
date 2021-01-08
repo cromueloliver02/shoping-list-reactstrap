@@ -2,6 +2,7 @@ import {
 	GET_ITEMS,
 	ADD_ITEM,
 	DELETE_ITEM,
+	CLEAR_ITEMS,
 	SET_LOADING_ITEM,
 	ITEM_ERROR
 } from '../_actions/types';
@@ -30,6 +31,12 @@ const itemReducers = (state = initialState, { type, payload }) => {
 			return {
 				...state,
 				items: state.items.filter(item => item._id !== payload),
+				loading: false
+			};
+		case CLEAR_ITEMS:
+			return {
+				...state,
+				items: [],
 				loading: false
 			};
 		case SET_LOADING_ITEM:

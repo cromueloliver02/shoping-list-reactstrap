@@ -20,6 +20,7 @@ const ShoppingList = ({ item: { items, loading }, getItems }) => {
 		<Container>
 			<Row>
 				<Col sm={{ size: 6, offset: 3 }}>
+					<h5 className='mb-2'>Shopping list</h5>
 					<ListGroup>
 						<TransitionGroup className='shopping-list'>
 							{!loading && items.length === 0 ? (

@@ -4,7 +4,7 @@ import './App.css';
 
 import AppNavbar from './components/layout/AppNavbar.jsx';
 import ShoppingList from './components/shopping-list/ShoppingList.jsx';
-import AddItemModal from './components/layout/AddItemModal.jsx';
+import Buttons from './components/layout/Buttons.jsx';
 import { loadUser } from './_actions/auth';
 import setAuthToken from './utils/setAuthToken';
 // redux
@@ -24,7 +24,7 @@ const App = () => {
 		<Provider store={store}>
 			<Fragment>
 				<AppNavbar />
-				<AddItemModal />
+				<Buttons />
 				<ShoppingList />
 			</Fragment>
 		</Provider>

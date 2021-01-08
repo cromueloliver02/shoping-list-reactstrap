@@ -18,7 +18,7 @@ const ShoppingItem = ({
 					className='mr-3'
 					onClick={() => deleteItem(item._id)}
 				>
-					&times;
+					<i className='fas fa-times'></i>
 				</Button>
 			)}
 			{item.name}

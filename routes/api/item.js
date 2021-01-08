@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
 
 // @route      POST /api/items
 // @desc       Create an item
-// @access     Public
+// @access     Private
 router.post('/', auth, async (req, res) => {
 	try {
 		const item = new Item({ name: req.body.name });
@@ -37,7 +37,7 @@ router.post('/', auth, async (req, res) => {
 
 // @route      DELETE /api/items/:item_id
 // @desc       Delete an item
-// @access     Public
+// @access     Private
 router.delete('/:item_id', auth, async (req, res) => {
 	try {
 		const item = await Item.findById(req.params.item_id);
@@ -48,6 +48,20 @@ router.delete('/:item_id', auth, async (req, res) => {
 		await item.remove();
 
 		res.json({ success: true });
+	} catch (err) {
+		console.error(err.message);
+		res.json({ success: false });
+	}
+});
+
+// @route      DELETE /api/items
+// @desc       Clear all items
+// @access     Private
+router.delete('/', auth, async (req, res) => {
+	try {
+		await Item.deleteMany();
+
+		res.json({ sucess: true });
 	} catch (err) {
 		console.error(err.message);
 		res.json({ success: false });

@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
-import { addItem } from '../../_actions/item';
-import { Row, Col, Spinner } from 'reactstrap';
+import { addItem, clearItems } from '../../_actions/item';
+import { Row, Col, Alert } from 'reactstrap';
 import PropTypes from 'prop-types';
 
 import {
@@ -16,7 +16,12 @@ import {
 	Input
 } from 'reactstrap';
 
-const AddItemModal = ({ auth: { isAuthenticated }, loading, addItem }) => {
+const Buttons = ({
+	auth: { isAuthenticated },
+	loading,
+	addItem,
+	clearItems
+}) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [name, setName] = useState('');
 
@@ -35,19 +40,40 @@ const AddItemModal = ({ auth: { isAuthenticated }, loading, addItem }) => {
 	};
 
 	return (
-		<Container className='pt-5 pb-3'>
+		<Container className='pt-5 pb-4'>
 			<Row>
 				<Col sm={{ size: 6, offset: 3 }}>
 					{isAuthenticated ? (
-						<Button color='dark' onClick={toggle}>
-							{loading ? (
-								<Spinner color='light' />
-							) : (
-								<Fragment>Add Item</Fragment>
-							)}
-						</Button>
+						<Fragment>
+							<Button
+								color='dark'
+								size='sm'
+								onClick={toggle}
+								disabled={loading}
+							>
+								{console.log(loading)}
+								{loading ? (
+									<Fragment>
+										<i className='fas fa-cog fa-spin'></i> Adding to
+										list . . .
+									</Fragment>
+								) : (
+									<Fragment>Add Item</Fragment>
+								)}
+							</Button>
+							<Button
+								color='danger'
+								size='sm'
+								className='ml-2'
+								onClick={() => clearItems()}
+							>
+								Clear All
+							</Button>
+						</Fragment>
 					) : (
-						<h5>Please login to gain access.</h5>
+						<Alert color='info'>
+							<i className='fas fa-info-circle'></i> Login to gain access
+						</Alert>
 					)}
 
 					<Modal isOpen={isOpen} toggle={toggle}>
@@ -83,14 +109,15 @@ const AddItemModal = ({ auth: { isAuthenticated }, loading, addItem }) => {
 	);
 };
 
-AddItemModal.propTypes = {
+Buttons.propTypes = {
 	addItem: PropTypes.func.isRequired,
+	clearItems: PropTypes.func.isRequired,
 	loading: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => ({
 	auth: state.auth,
-	loading: state.auth.loading
+	loading: state.item.loading
 });
 
-export default connect(mapStateToProps, { addItem })(AddItemModal);
+export default connect(mapStateToProps, { addItem, clearItems })(Buttons);

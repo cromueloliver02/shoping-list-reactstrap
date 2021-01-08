@@ -52,12 +52,14 @@ export const login = ({ email, password }) => async dispatch => {
 	try {
 		const res = await axios.post('/api/auth', body, config);
 
-		dispatch({
-			type: LOGIN_SUCCESS,
-			payload: res.data
-		});
+		setTimeout(() => {
+			dispatch({
+				type: LOGIN_SUCCESS,
+				payload: res.data
+			});
 
-		dispatch(loadUser());
+			dispatch(loadUser());
+		}, 3000);
 	} catch (err) {
 		if (err.response.data.errors !== undefined) {
 			const errors = err.response.data.errors;
@@ -91,12 +93,14 @@ export const register = ({ name, email, password }) => async dispatch => {
 	try {
 		const res = await axios.post('/api/users', body, config);
 
-		dispatch({
-			type: REGISTER_SUCCESS,
-			payload: res.data
-		});
+		setTimeout(() => {
+			dispatch({
+				type: REGISTER_SUCCESS,
+				payload: res.data
+			});
 
-		dispatch(loadUser());
+			dispatch(loadUser());
+		}, 3000);
 	} catch (err) {
 		if (err.response.data.errors !== undefined) {
 			const errors = err.response.data.errors;
