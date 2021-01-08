@@ -57,11 +57,11 @@ const RegisterModal = ({ loading, register, setAlert }) => {
 
 	return (
 		<Fragment>
-			<NavLink href='#!' onClick={toggle}>
+			<NavLink href='#!' onClick={!loading && toggle}>
 				Register
 			</NavLink>
-			<Modal isOpen={isOpen} toggle={toggle}>
-				<ModalHeader toggle={toggle}>Register</ModalHeader>
+			<Modal isOpen={isOpen} toggle={!loading && toggle}>
+				<ModalHeader toggle={!loading && toggle}>Register</ModalHeader>
 				<Alert />
 				<ModalBody>
 					<Form onSubmit={onRegister}>

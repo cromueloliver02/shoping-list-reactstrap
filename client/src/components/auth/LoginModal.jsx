@@ -41,11 +41,11 @@ const LoginModal = ({ loading, login }) => {
 
 	return (
 		<Fragment>
-			<NavLink href='#!' onClick={toggle}>
+			<NavLink href='#!' onClick={!loading && toggle}>
 				Login
 			</NavLink>
-			<Modal isOpen={isOpen} toggle={toggle}>
-				<ModalHeader toggle={toggle}>Login</ModalHeader>
+			<Modal isOpen={isOpen} toggle={!loading && toggle}>
+				<ModalHeader toggle={!loading && toggle}>Login</ModalHeader>
 				<Alert />
 				<ModalBody>
 					<Form onSubmit={onLogin}>
